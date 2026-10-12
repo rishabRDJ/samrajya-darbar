@@ -1,6 +1,0 @@
-{
-    "git": {
-      "deploymentEnabled": true,
-      "productionBranch": "production"
-    }
-  }
