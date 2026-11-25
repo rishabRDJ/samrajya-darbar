@@ -5,15 +5,15 @@ export class UsersService {
   constructor(private readonly http: ApiClient = apiClient) {}
 
   getMe(): Promise<UserResponseDto> {
-    return this.http.get<UserResponseDto>("/users/me", { auth: true });
+    return this.http.get<UserResponseDto>("/v1/users/me", { auth: true });
   }
 
   updateMe(dto: UpdateMeDto): Promise<UserResponseDto> {
-    return this.http.patch<UserResponseDto>("/users/me", dto, { auth: true });
+    return this.http.patch<UserResponseDto>("/v1/users/me", dto, { auth: true });
   }
 
   changePassword(dto: ChangePasswordDto): Promise<void> {
-    return this.http.post<void>("/users/me/password", dto, { auth: true });
+    return this.http.post<void>("/v1/users/me/password", dto, { auth: true });
   }
 }
 

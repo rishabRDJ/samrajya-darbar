@@ -15,19 +15,19 @@ export class AuthService {
   ) {}
 
   async login(dto: LoginDto): Promise<TokenResponseDto> {
-    const res = await this.http.post<TokenResponseDto>("/auth/login", dto);
+    const res = await this.http.post<TokenResponseDto>("/v1/auth/login", dto);
     this.tokens.setTokens(res.accessToken, res.refreshToken);
     return res;
   }
 
   async register(dto: RegisterDto): Promise<UserResponseDto> {
-    return this.http.post<UserResponseDto>("/auth/register", dto);
+    return this.http.post<UserResponseDto>("/v1/auth/register", dto);
   }
 
   async refresh(): Promise<TokenResponseDto | null> {
     const refreshToken = this.tokens.getRefreshToken();
     if (!refreshToken) return null;
-    const res = await this.http.post<TokenResponseDto>("/auth/refresh", { refreshToken });
+    const res = await this.http.post<TokenResponseDto>("/v1/auth/refresh", { refreshToken });
     this.tokens.setTokens(res.accessToken, res.refreshToken);
     return res;
   }
@@ -36,7 +36,7 @@ export class AuthService {
     const refreshToken = this.tokens.getRefreshToken();
     try {
       if (refreshToken) {
-        await this.http.post<void>("/auth/logout", { refreshToken });
+        await this.http.post<void>("/v1/auth/logout", { refreshToken });
       }
     } finally {
       this.tokens.clear();
@@ -44,11 +44,11 @@ export class AuthService {
   }
 
   checkUsername(username: string): Promise<AvailabilityResponseDto> {
-    return this.http.get<AvailabilityResponseDto>("/auth/availability", { query: { username } });
+    return this.http.get<AvailabilityResponseDto>("/v1/auth/availability", { query: { username } });
   }
 
   checkEmail(emailAddress: string): Promise<AvailabilityResponseDto> {
-    return this.http.get<AvailabilityResponseDto>("/auth/availability", {
+    return this.http.get<AvailabilityResponseDto>("/v1/auth/availability", {
       query: { emailAddress },
     });
   }
