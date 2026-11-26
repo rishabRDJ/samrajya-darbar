@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, Tabs, Card } from '@/shared/components';
+import { Badge, Button, Card, Tabs } from '@/shared/components';
 
 export function PreviewClient() {
   const [tab, setTab] = useState('positions');
@@ -60,6 +60,23 @@ export function PreviewClient() {
           variant={tabVariant as 'underline' | 'pills' | 'segmented'}
         />
         <p className="text-sm text-gray-500">Active: {tab}</p>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-lg font-semibold">Badge</h2>
+        <div className="flex flex-wrap items-center gap-3">
+          <Badge text="Neutral" />
+          <Badge text="Connected" variant="success" dot />
+          <Badge text="LIVE" variant="success" dot pulse />
+          <Badge text="HALTED" variant="danger" dot />
+          <Badge text="BUY" variant="success" />
+          <Badge text="SELL" variant="danger" />
+          <Badge text="SUPPLY 5m" variant="info" />
+          <Badge text="Pending" variant="warning" />
+          <Badge text="Small" variant="info" size="sm" />
+          <Badge text="Medium" variant="info" size="md" />
+          <Badge text="Large" variant="info" size="lg" />
+        </div>
       </section>
 
       <section className="space-y-4">
