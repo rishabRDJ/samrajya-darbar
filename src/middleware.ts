@@ -1,12 +1,11 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
 const AUTH_COOKIE = 'darbar_auth';
-const PUBLIC_PATHS = ['/login', '/register'];
+const PUBLIC_PATHS = new Set(['/', '/register']);
 
 function isPublic(pathname: string): boolean {
-  return PUBLIC_PATHS.some(
-    (p) => pathname === p || pathname.startsWith(`${p}/`),
-  );
+  if (PUBLIC_PATHS.has(pathname)) return true;
+  return pathname.startsWith('/register/');
 }
 
 export function middleware(req: NextRequest) {
@@ -15,13 +14,13 @@ export function middleware(req: NextRequest) {
 
   if (!isAuthed && !isPublic(pathname)) {
     const url = req.nextUrl.clone();
-    url.pathname = '/login';
+    url.pathname = '/';
     return NextResponse.redirect(url);
   }
 
   if (isAuthed && isPublic(pathname)) {
     const url = req.nextUrl.clone();
-    url.pathname = '/';
+    url.pathname = '/dashboard';
     return NextResponse.redirect(url);
   }
 

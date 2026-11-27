@@ -46,7 +46,7 @@ export function LoginForm() {
     setLoading(true);
     try {
       await authApi.login({ identifier: identifier.trim(), password });
-      router.push("/");
+      router.push("/dashboard");
     } catch (err) {
       setBanner(mapApiError(err));
     } finally {
