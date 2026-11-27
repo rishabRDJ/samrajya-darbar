@@ -1,5 +1,51 @@
 @import "tailwindcss";
 
+@theme {
+  /* Jade Green (Primary Brand / Background) */
+  --color-jade-green-100: #E3F2EE;
+  --color-jade-green-200: #BCE0D6;
+  --color-jade-green-300: #8EC8B9;
+  --color-jade-green-400: #5CAE9A;
+  --color-jade-green-500: #35927D;
+  --color-jade-green-600: #247A67;
+  --color-jade-green-700: #196453;
+  --color-jade-green-800: #135546;
+  --color-jade-green-900: #0E4A3C;
+
+  /* Samrajya Gold (Accents / Candles / Titles) */
+  --color-samrajya-gold-100: #FAF3DF;
+  --color-samrajya-gold-200: #F3E3B6;
+  --color-samrajya-gold-300: #EBD08A;
+  --color-samrajya-gold-400: #E0BC5F;
+  --color-samrajya-gold-500: #D4A93A;
+  --color-samrajya-gold-600: #B58B27;
+  --color-samrajya-gold-700: #8E6B1C;
+  --color-samrajya-gold-800: #674D14;
+  --color-samrajya-gold-900: #45320C;
+
+  /* Bull Green (Buy / Profit / Connected) */
+  --color-bull-green-100: #E2F9EC;
+  --color-bull-green-200: #B9F1D1;
+  --color-bull-green-300: #87E6B1;
+  --color-bull-green-400: #57D990;
+  --color-bull-green-500: #2ECC71;
+  --color-bull-green-600: #22AB5C;
+  --color-bull-green-700: #198547;
+  --color-bull-green-800: #116033;
+  --color-bull-green-900: #0B3B2E;
+
+  /* Bear Red (Sell / Loss / Error / Halted) */
+  --color-bear-red-100: #FDE7E5;
+  --color-bear-red-200: #FAC8C3;
+  --color-bear-red-300: #F59E95;
+  --color-bear-red-400: #EE7467;
+  --color-bear-red-500: #E74C3C;
+  --color-bear-red-600: #C83829;
+  --color-bear-red-700: #9F2A1E;
+  --color-bear-red-800: #761E15;
+  --color-bear-red-900: #4F130D;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;

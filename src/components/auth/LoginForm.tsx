@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { FiLock, FiLogIn, FiMail } from 'react-icons/fi';
-import { useRouter } from 'next/navigation';
-import { useState, type FormEvent } from 'react';
-import { authApi } from '@/api';
-import { ApiError } from '@/lib/http/types';
-import { Button } from '@/shared/components/Button/Button';
-import { Input } from '@/shared/components/Input';
+import { FiLock, FiLogIn, FiMail } from "react-icons/fi";
+import { useRouter } from "next/navigation";
+import { useState, type FormEvent } from "react";
+import { authApi } from "@/api";
+import { ApiError } from "@/lib/http/types";
+import { Button } from "@/shared/components/Button/Button";
+import { Input } from "@/shared/components/Input";
 
 type FieldErrors = {
   identifier?: string;
@@ -15,25 +15,24 @@ type FieldErrors = {
 
 function mapApiError(err: unknown): string {
   if (err instanceof ApiError) {
-    if (err.status === 401) return 'Invalid email/username or password';
-    if (err.status === 429)
-      return 'Too many login attempts. Please wait a minute and try again.';
+    if (err.status === 401) return "Invalid email/username or password";
+    if (err.status === 429) return "Too many login attempts. Please wait a minute and try again.";
   }
-  return 'Something went wrong. Please try again.';
+  return "Something went wrong. Please try again.";
 }
 
 export function LoginForm() {
   const router = useRouter();
-  const [identifier, setIdentifier] = useState('');
-  const [password, setPassword] = useState('');
+  const [identifier, setIdentifier] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
   const [banner, setBanner] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const validate = (): FieldErrors => {
     const next: FieldErrors = {};
-    if (!identifier.trim()) next.identifier = 'Email or username is required';
-    if (!password) next.password = 'Password is required';
+    if (!identifier.trim()) next.identifier = "Email or username is required";
+    if (!password) next.password = "Password is required";
     return next;
   };
 
@@ -47,7 +46,7 @@ export function LoginForm() {
     setLoading(true);
     try {
       await authApi.login({ identifier: identifier.trim(), password });
-      router.push('/');
+      router.push("/");
     } catch (err) {
       setBanner(mapApiError(err));
     } finally {
@@ -80,7 +79,7 @@ export function LoginForm() {
           }}
           onBlur={() => {
             if (!identifier.trim())
-              setErrors((e) => ({ ...e, identifier: 'Email or username is required' }));
+              setErrors((e) => ({ ...e, identifier: "Email or username is required" }));
           }}
           placeholder="Email or username"
           autoComplete="username"
@@ -98,8 +97,7 @@ export function LoginForm() {
             if (errors.password) setErrors((e) => ({ ...e, password: undefined }));
           }}
           onBlur={() => {
-            if (!password)
-              setErrors((e) => ({ ...e, password: 'Password is required' }));
+            if (!password) setErrors((e) => ({ ...e, password: "Password is required" }));
           }}
           placeholder="Password"
           autoComplete="current-password"
@@ -121,7 +119,7 @@ export function LoginForm() {
 
       <div className="mt-6 flex flex-col gap-3">
         <Button
-          text={loading ? 'Signing in…' : 'Login'}
+          text={loading ? "Signing in…" : "Login"}
           type="submit"
           fullWidth
           loading={loading}
