@@ -1,4 +1,5 @@
-import { tokenStorage, TokenStorage } from "./token-storage";
+import { tokenStorage, TokenStorage } from "@/lib/auth/token-storage";
+import { ApiError } from "./types";
 
 export interface RequestOptions {
   method?: "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
@@ -6,17 +7,6 @@ export interface RequestOptions {
   query?: Record<string, string | number | boolean | undefined>;
   auth?: boolean;
   signal?: AbortSignal;
-}
-
-export class ApiError extends Error {
-  status: number;
-  body: unknown;
-  constructor(status: number, message: string, body: unknown) {
-    super(message);
-    this.name = "ApiError";
-    this.status = status;
-    this.body = body;
-  }
 }
 
 const DEFAULT_BASE_URL = "http://localhost:3000";
