@@ -30,6 +30,7 @@ export type ButtonProps = {
   loading?: boolean;
   fullWidth?: boolean;
   style?: CSSProperties;
+  className?: string;
 };
 
 function Spinner() {
@@ -71,16 +72,18 @@ export function Button({
   loading = false,
   fullWidth = false,
   style,
+  className,
 }: ButtonProps) {
   const [hover, setHover] = useState(false);
   const isDisabled = disabled || loading;
+  const hasClassName = Boolean(className);
 
   const mergedStyle: CSSProperties = {
     ...base,
-    ...variants[variant],
-    ...(hover && !isDisabled ? variantsHover[variant] : {}),
-    ...(iconOnly ? iconOnlySizes[size] : sizes[size]),
-    ...(fullWidth ? fullWidthStyle : {}),
+    ...(hasClassName ? {} : variants[variant]),
+    ...(hasClassName || !hover || isDisabled ? {} : variantsHover[variant]),
+    ...(hasClassName ? {} : iconOnly ? iconOnlySizes[size] : sizes[size]),
+    ...(fullWidth && !hasClassName ? fullWidthStyle : {}),
     ...(isDisabled ? disabledStyle : {}),
     ...style,
   };
@@ -118,6 +121,7 @@ export function Button({
           onClick={onClick}
           aria-label={ariaLabel}
           style={mergedStyle}
+          className={className}
           {...hoverHandlers}
         >
           {content}
@@ -130,6 +134,7 @@ export function Button({
         onClick={onClick}
         aria-label={ariaLabel}
         style={mergedStyle}
+        className={className}
         {...hoverHandlers}
       >
         {content}
@@ -145,6 +150,7 @@ export function Button({
       aria-label={iconOnly ? text : undefined}
       aria-busy={loading || undefined}
       style={mergedStyle}
+      className={className}
       {...hoverHandlers}
     >
       {content}
