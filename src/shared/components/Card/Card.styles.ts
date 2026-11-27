@@ -5,7 +5,9 @@ export type Variant = 'vertical' | 'horizontal' | 'square';
 export const base: CSSProperties = {
   display: 'block',
   borderRadius: 8,
-  border: '1px solid #e5e7eb',
+  borderWidth: 1,
+  borderStyle: 'solid',
+  borderColor: '#e5e7eb',
   backgroundColor: '#ffffff',
   color: '#111827',
   textDecoration: 'none',

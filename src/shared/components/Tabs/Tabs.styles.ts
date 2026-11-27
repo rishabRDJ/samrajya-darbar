@@ -46,7 +46,9 @@ export const tabBase: CSSProperties = {
 
 export const tabUnderlineBase: CSSProperties = {
   borderRadius: 0,
-  borderBottom: '2px solid transparent',
+  borderBottomWidth: 2,
+  borderBottomStyle: 'solid',
+  borderBottomColor: 'transparent',
   marginBottom: -1,
 };
 

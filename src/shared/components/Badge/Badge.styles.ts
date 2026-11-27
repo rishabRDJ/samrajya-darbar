@@ -11,7 +11,9 @@ export const base: CSSProperties = {
   fontWeight: 500,
   lineHeight: 1,
   whiteSpace: 'nowrap',
-  border: '1px solid transparent',
+  borderWidth: 1,
+  borderStyle: 'solid',
+  borderColor: 'transparent',
 };
 
 export const sizes: Record<Size, CSSProperties> = {
