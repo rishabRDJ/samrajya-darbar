@@ -65,7 +65,7 @@ export function Switch({
         role="switch"
         checked={checked}
         disabled={disabled}
-        onChange={(event) => onChange(e.target.checked)}
+        onChange={(event) => onChange(event.target.checked)}
         aria-checked={checked}
         aria-invalid={error || undefined}
         style={srOnly}
