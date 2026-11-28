@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   useEffect,
@@ -8,7 +8,7 @@ import {
   type ChangeEvent,
   type CSSProperties,
   type FocusEvent,
-} from 'react';
+} from "react";
 import {
   row,
   rowDisabled,
@@ -21,7 +21,7 @@ import {
   srOnly,
   boxSize,
   type Size,
-} from './Checkbox.styles';
+} from "./Checkbox.styles";
 
 export type CheckboxProps = {
   id?: string;
@@ -30,8 +30,8 @@ export type CheckboxProps = {
   description?: string;
   checked: boolean;
   indeterminate?: boolean;
-  onChange: (checked: boolean, e: ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
+  onChange: (checked: boolean, event: ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
   size?: Size;
   error?: string | boolean;
   required?: boolean;
@@ -49,7 +49,7 @@ export function Checkbox({
   indeterminate = false,
   onChange,
   onBlur,
-  size = 'md',
+  size = "md",
   error,
   required = false,
   disabled = false,
@@ -67,16 +67,13 @@ export function Checkbox({
   }, [indeterminate]);
 
   const hasError = Boolean(error) && (touched || showError);
-  const errorMsg = typeof error === 'string' ? error : undefined;
+  const errorMsg = typeof error === "string" ? error : undefined;
 
   const s = boxSize[size];
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', ...style }}>
-      <label
-        htmlFor={id}
-        style={{ ...row, ...(disabled ? rowDisabled : {}) }}
-      >
+    <div style={{ display: "flex", flexDirection: "column", ...style }}>
+      <label htmlFor={id} style={{ ...row, ...(disabled ? rowDisabled : {}) }}>
         <input
           ref={inputRef}
           id={id}
@@ -85,11 +82,11 @@ export function Checkbox({
           checked={checked}
           required={required}
           disabled={disabled}
-          onChange={(e) => onChange(e.target.checked, e)}
-          onBlur={(e) => {
+          onChange={(event) => onChange(event.target.checked, event)}
+          onBlur={(event) => {
             setTouched(true);
             setFocused(false);
-            onBlur?.(e);
+            onBlur?.(event);
           }}
           onFocus={() => setFocused(true)}
           aria-invalid={hasError || undefined}

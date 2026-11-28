@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useId, type CSSProperties } from 'react';
+import { useId, type CSSProperties } from "react";
 import {
   row,
   rowDisabled,
@@ -11,7 +11,7 @@ import {
   description as descStyle,
   srOnly,
   type Size,
-} from './Switch.styles';
+} from "./Switch.styles";
 
 export type SwitchProps = {
   id?: string;
@@ -21,7 +21,7 @@ export type SwitchProps = {
   checked: boolean;
   onChange: (checked: boolean) => void;
   size?: Size;
-  labelPosition?: 'left' | 'right';
+  labelPosition?: "left" | "right";
   error?: boolean;
   disabled?: boolean;
   style?: CSSProperties;
@@ -34,8 +34,8 @@ export function Switch({
   description,
   checked,
   onChange,
-  size = 'md',
-  labelPosition = 'right',
+  size = "md",
+  labelPosition = "right",
   error = false,
   disabled = false,
   style,
@@ -44,11 +44,7 @@ export function Switch({
   const id = providedId ?? autoId;
 
   const control = (
-    <span
-      style={track(size, checked, error)}
-      role="presentation"
-      aria-hidden
-    >
+    <span style={track(size, checked, error)} role="presentation" aria-hidden>
       <span style={thumb(size, checked)} />
     </span>
   );
@@ -61,10 +57,7 @@ export function Switch({
   );
 
   return (
-    <label
-      htmlFor={id}
-      style={{ ...row, ...(disabled ? rowDisabled : {}), ...style }}
-    >
+    <label htmlFor={id} style={{ ...row, ...(disabled ? rowDisabled : {}), ...style }}>
       <input
         id={id}
         name={name}
@@ -72,14 +65,14 @@ export function Switch({
         role="switch"
         checked={checked}
         disabled={disabled}
-        onChange={(e) => onChange(e.target.checked)}
+        onChange={(event) => onChange(e.target.checked)}
         aria-checked={checked}
         aria-invalid={error || undefined}
         style={srOnly}
       />
-      {labelPosition === 'left' && text}
+      {labelPosition === "left" && text}
       {control}
-      {labelPosition === 'right' && text}
+      {labelPosition === "right" && text}
     </label>
   );
 }

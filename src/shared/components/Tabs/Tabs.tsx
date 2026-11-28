@@ -1,11 +1,6 @@
-'use client';
+"use client";
 
-import {
-  useRef,
-  type CSSProperties,
-  type KeyboardEvent,
-  type ReactNode,
-} from 'react';
+import { useRef, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
 import {
   wrapper,
   wrapperVariants,
@@ -20,7 +15,7 @@ import {
   badgeOnActivePill,
   type Variant,
   type Size,
-} from './Tabs.styles';
+} from "./Tabs.styles";
 
 export type TabItem = {
   id: string;
@@ -37,12 +32,12 @@ export type TabsProps = {
   variant?: Variant;
   size?: Size;
   style?: CSSProperties;
-  'aria-label'?: string;
+  "aria-label"?: string;
 };
 
 function activeStyleFor(variant: Variant): CSSProperties {
-  if (variant === 'underline') return tabUnderlineActive;
-  if (variant === 'pills') return tabPillsActive;
+  if (variant === "underline") return tabUnderlineActive;
+  if (variant === "pills") return tabPillsActive;
   return tabSegmentedActive;
 }
 
@@ -50,43 +45,41 @@ export function Tabs({
   tabs,
   value,
   onChange,
-  variant = 'underline',
-  size = 'md',
+  variant = "underline",
+  size = "md",
   style,
-  'aria-label': ariaLabel,
+  "aria-label": ariaLabel,
 }: TabsProps) {
   const listRef = useRef<HTMLDivElement>(null);
 
   const focusTab = (id: string) => {
-    const el = listRef.current?.querySelector<HTMLButtonElement>(
-      `[data-tab-id="${id}"]`
-    );
+    const el = listRef.current?.querySelector<HTMLButtonElement>(`[data-tab-id="${id}"]`);
     el?.focus();
   };
 
-  const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+  const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     const enabled = tabs.filter((t) => !t.disabled);
     if (!enabled.length) return;
     const currentIdx = enabled.findIndex((t) => t.id === value);
     let nextIdx = currentIdx;
 
-    switch (e.key) {
-      case 'ArrowLeft':
+    switch (event.key) {
+      case "ArrowLeft":
         nextIdx = currentIdx <= 0 ? enabled.length - 1 : currentIdx - 1;
         break;
-      case 'ArrowRight':
+      case "ArrowRight":
         nextIdx = currentIdx >= enabled.length - 1 ? 0 : currentIdx + 1;
         break;
-      case 'Home':
+      case "Home":
         nextIdx = 0;
         break;
-      case 'End':
+      case "End":
         nextIdx = enabled.length - 1;
         break;
       default:
         return;
     }
-    e.preventDefault();
+    event.preventDefault();
     const nextTab = enabled[nextIdx];
     onChange(nextTab.id);
     focusTab(nextTab.id);
@@ -111,7 +104,7 @@ export function Tabs({
         const tabStyle: CSSProperties = {
           ...tabBase,
           ...sizes[size],
-          ...(variant === 'underline' ? tabUnderlineBase : {}),
+          ...(variant === "underline" ? tabUnderlineBase : {}),
           ...(active ? activeStyleFor(variant) : {}),
           ...(tab.disabled ? tabDisabled : {}),
         };
@@ -135,7 +128,7 @@ export function Tabs({
               <span
                 style={{
                   ...badgeBase,
-                  ...(active && variant === 'pills' ? badgeOnActivePill : {}),
+                  ...(active && variant === "pills" ? badgeOnActivePill : {}),
                 }}
               >
                 {tab.badge}

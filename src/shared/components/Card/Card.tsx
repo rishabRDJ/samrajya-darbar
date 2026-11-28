@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useState, type CSSProperties, type MouseEvent, type ReactNode } from 'react';
+import Link from "next/link";
+import { useState, type CSSProperties, type MouseEvent, type ReactNode } from "react";
 import {
   base,
   interactive as interactiveStyle,
@@ -17,12 +17,12 @@ import {
   content as contentStyle,
   footer as footerStyle,
   type Variant,
-} from './Card.styles';
+} from "./Card.styles";
 
 export type CardProps = {
   variant?: Variant;
   href?: string;
-  onClick?: (e: MouseEvent<HTMLElement>) => void;
+  onClick?: (event: MouseEvent<HTMLElement>) => void;
   title?: ReactNode;
   subtitle?: ReactNode;
   headerRight?: ReactNode;
@@ -37,7 +37,7 @@ function isExternal(href: string) {
 }
 
 export function Card({
-  variant = 'vertical',
+  variant = "vertical",
   href,
   onClick,
   title,
@@ -116,10 +116,10 @@ export function Card({
         role="button"
         tabIndex={0}
         onClick={onClick}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            onClick(e as unknown as MouseEvent<HTMLElement>);
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            onClick(event as unknown as MouseEvent<HTMLElement>);
           }
         }}
         style={merged}

@@ -109,8 +109,8 @@ export function Dropdown({
 
   useEffect(() => {
     if (!open) return;
-    const onDocDown = (_event: MouseEvent) => {
-      if (!rootRef.current?.contains(_event.target as Node)) {
+    const onDocDown = (event: MouseEvent) => {
+      if (!rootRef.current?.contains(event.target as Node)) {
         setOpen(false);
         setTouched(true);
         setQuery("");
@@ -162,42 +162,42 @@ export function Dropdown({
     }
   };
 
-  const onTriggerKeyDown = (_event: KeyboardEvent<HTMLButtonElement>) => {
+  const onTriggerKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
     if (disabled) return;
     if (!open) {
-      if (_event.key === "ArrowDown" || _event.key === "Enter" || _event.key === " ") {
-        _event.preventDefault();
+      if (event.key === "ArrowDown" || event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
         openMenu();
       }
       return;
     }
-    if (_event.key === "Escape") {
-      _event.preventDefault();
+    if (event.key === "Escape") {
+      event.preventDefault();
       closeMenu();
-    } else if (_event.key === "ArrowDown") {
-      _event.preventDefault();
+    } else if (event.key === "ArrowDown") {
+      event.preventDefault();
       moveActive(1);
-    } else if (_event.key === "ArrowUp") {
-      _event.preventDefault();
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
       moveActive(-1);
-    } else if (_event.key === "Enter") {
-      _event.preventDefault();
+    } else if (event.key === "Enter") {
+      event.preventDefault();
       commitActive();
     }
   };
 
-  const onSearchKeyDown = (_event: KeyboardEvent<HTMLInputElement>) => {
-    if (_event.key === "ArrowDown") {
-      _event.preventDefault();
+  const onSearchKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
       moveActive(1);
-    } else if (_event.key === "ArrowUp") {
-      _event.preventDefault();
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
       moveActive(-1);
-    } else if (_event.key === "Enter") {
-      _event.preventDefault();
+    } else if (event.key === "Enter") {
+      event.preventDefault();
       commitActive();
-    } else if (_event.key === "Escape") {
-      _event.preventDefault();
+    } else if (event.key === "Escape") {
+      event.preventDefault();
       closeMenu();
     }
   };
@@ -264,7 +264,7 @@ export function Dropdown({
               ref={searchRef}
               type="search"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(event) => setQuery(event.target.value)}
               onKeyDown={onSearchKeyDown}
               placeholder="Search..."
               style={searchStyle}

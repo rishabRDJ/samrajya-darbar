@@ -41,8 +41,8 @@ export function LoginForm() {
 
   const canSubmit = identifier.trim().length > 0 && password.length >= 8;
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     const nextErrors = validate();
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
@@ -89,11 +89,11 @@ export function LoginForm() {
           value={identifier}
           onChange={(v) => {
             setIdentifier(v);
-            if (errors.identifier) setErrors((e) => ({ ...e, identifier: undefined }));
+            if (errors.identifier) setErrors((event) => ({ ...event, identifier: undefined }));
           }}
           onBlur={() => {
             if (!identifier.trim())
-              setErrors((e) => ({ ...e, identifier: "Email or username is required" }));
+              setErrors((event) => ({ ...event, identifier: "Email or username is required" }));
           }}
           placeholder="Email or username"
           autoComplete="username"
@@ -108,10 +108,10 @@ export function LoginForm() {
           value={password}
           onChange={(v) => {
             setPassword(v);
-            if (errors.password) setErrors((e) => ({ ...e, password: undefined }));
+            if (errors.password) setErrors((event) => ({ ...event, password: undefined }));
           }}
           onBlur={() => {
-            if (!password) setErrors((e) => ({ ...e, password: "Password is required" }));
+            if (!password) setErrors((event) => ({ ...event, password: "Password is required" }));
           }}
           placeholder="Password"
           autoComplete="current-password"

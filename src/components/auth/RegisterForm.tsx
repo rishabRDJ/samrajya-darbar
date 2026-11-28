@@ -27,49 +27,32 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function mapApiError(err: unknown): string {
   if (err instanceof ApiError) {
-    if (err.status === 409)
-      return "Username, email, or phone number is already in use";
-    if (err.status === 400)
-      return "Some fields are invalid. Please check and try again.";
+    if (err.status === 409) return "Username, email, or phone number is already in use";
+    if (err.status === 400) return "Some fields are invalid. Please check and try again.";
     if (err.status === 429)
       return "Too many registration attempts. Please wait a minute and try again.";
   }
   return "Something went wrong. Please try again.";
 }
 
-function AvailabilityIcon({
-  status,
-  label,
-}: {
-  status: AvailabilityStatus;
-  label: string;
-}) {
+function AvailabilityIcon({ status, label }: { status: AvailabilityStatus; label: string }) {
   if (status === "checking") {
     return (
-      <span
-        title={`Checking ${label}…`}
-        className="flex items-center text-zinc-400"
-      >
+      <span title={`Checking ${label}…`} className="flex items-center text-zinc-400">
         <LuLoader size={16} className="animate-spin" />
       </span>
     );
   }
   if (status === "available") {
     return (
-      <span
-        title={`${label} available`}
-        className="flex items-center text-bull-green-600"
-      >
+      <span title={`${label} available`} className="flex items-center text-bull-green-600">
         <LuCircleCheck size={16} />
       </span>
     );
   }
   if (status === "taken") {
     return (
-      <span
-        title={`${label} unavailable`}
-        className="flex items-center text-bear-red-600"
-      >
+      <span title={`${label} unavailable`} className="flex items-center text-bear-red-600">
         <LuCircleX size={16} />
       </span>
     );
@@ -99,7 +82,7 @@ export function RegisterForm() {
   const emailReqId = useRef(0);
 
   const clearFieldError = (key: keyof FieldErrors) => {
-    if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
+    if (errors[key]) setErrors((event) => ({ ...event, [key]: undefined }));
   };
 
   const validateUsername = (v: string): string | undefined => {
@@ -140,7 +123,7 @@ export function RegisterForm() {
         setUsernameStatus("available");
       } else {
         setUsernameStatus("taken");
-        setErrors((e) => ({ ...e, username: "Username is already taken" }));
+        setErrors((event) => ({ ...event, username: "Username is already taken" }));
       }
     } catch {
       if (reqId !== usernameReqId.current) return;
@@ -160,7 +143,7 @@ export function RegisterForm() {
         setEmailStatus("available");
       } else {
         setEmailStatus("taken");
-        setErrors((e) => ({ ...e, emailAddress: "Email is already in use" }));
+        setErrors((event) => ({ ...event, emailAddress: "Email is already in use" }));
       }
     } catch {
       if (reqId !== emailReqId.current) return;
@@ -196,8 +179,8 @@ export function RegisterForm() {
     return next;
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     const nextErrors = validateAll();
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
@@ -250,7 +233,7 @@ export function RegisterForm() {
             }}
             onBlur={() => {
               if (!firstName.trim())
-                setErrors((e) => ({ ...e, firstName: "First name is required" }));
+                setErrors((event) => ({ ...event, firstName: "First name is required" }));
             }}
             placeholder="First name"
             autoComplete="given-name"
@@ -269,7 +252,7 @@ export function RegisterForm() {
             }}
             onBlur={() => {
               if (!lastName.trim())
-                setErrors((e) => ({ ...e, lastName: "Last name is required" }));
+                setErrors((event) => ({ ...event, lastName: "Last name is required" }));
             }}
             placeholder="Last name"
             autoComplete="family-name"
@@ -292,7 +275,7 @@ export function RegisterForm() {
           onBlur={() => {
             const msg = validateUsername(username);
             if (msg) {
-              setErrors((e) => ({ ...e, username: msg }));
+              setErrors((event) => ({ ...event, username: msg }));
               setUsernameStatus("idle");
               return;
             }
@@ -301,9 +284,7 @@ export function RegisterForm() {
           placeholder="Username"
           autoComplete="username"
           prefix={<LuAtSign size={16} />}
-          suffix={
-            <AvailabilityIcon status={usernameStatus} label="Username" />
-          }
+          suffix={<AvailabilityIcon status={usernameStatus} label="Username" />}
           success={usernameStatus === "available"}
           error={errors.username}
           disabled={submitting}
@@ -322,7 +303,7 @@ export function RegisterForm() {
           onBlur={() => {
             const msg = validateEmail(emailAddress);
             if (msg) {
-              setErrors((e) => ({ ...e, emailAddress: msg }));
+              setErrors((event) => ({ ...event, emailAddress: msg }));
               setEmailStatus("idle");
               return;
             }
@@ -348,7 +329,7 @@ export function RegisterForm() {
           }}
           onBlur={() => {
             const msg = validatePhone(phoneNumber);
-            if (msg) setErrors((e) => ({ ...e, phoneNumber: msg }));
+            if (msg) setErrors((event) => ({ ...event, phoneNumber: msg }));
           }}
           placeholder="Phone number (optional)"
           autoComplete="tel"
@@ -366,12 +347,12 @@ export function RegisterForm() {
             setPassword(v);
             clearFieldError("password");
             if (confirmPassword && confirmPassword !== v)
-              setErrors((e) => ({ ...e, confirmPassword: "Passwords do not match" }));
+              setErrors((event) => ({ ...event, confirmPassword: "Passwords do not match" }));
             else clearFieldError("confirmPassword");
           }}
           onBlur={() => {
             const msg = validatePassword(password);
-            if (msg) setErrors((e) => ({ ...e, password: msg }));
+            if (msg) setErrors((event) => ({ ...event, password: msg }));
           }}
           placeholder="Password"
           autoComplete="new-password"
@@ -388,31 +369,26 @@ export function RegisterForm() {
           onChange={(v) => {
             setConfirmPassword(v);
             if (v && password && v !== password)
-              setErrors((e) => ({ ...e, confirmPassword: "Passwords do not match" }));
+              setErrors((event) => ({ ...event, confirmPassword: "Passwords do not match" }));
             else clearFieldError("confirmPassword");
           }}
           onBlur={() => {
             if (!confirmPassword)
-              setErrors((e) => ({ ...e, confirmPassword: "Please confirm your password" }));
+              setErrors((event) => ({ ...event, confirmPassword: "Please confirm your password" }));
             else if (confirmPassword !== password)
-              setErrors((e) => ({ ...e, confirmPassword: "Passwords do not match" }));
+              setErrors((event) => ({ ...event, confirmPassword: "Passwords do not match" }));
           }}
           placeholder="Confirm password"
           autoComplete="new-password"
           prefix={<LuLock size={16} />}
           suffix={
             confirmPassword && password && confirmPassword !== password ? (
-              <span
-                title="Passwords do not match"
-                className="flex items-center text-bear-red-600"
-              >
+              <span title="Passwords do not match" className="flex items-center text-bear-red-600">
                 <LuCircleX size={16} />
               </span>
             ) : null
           }
-          success={
-            confirmPassword.length > 0 && confirmPassword === password
-          }
+          success={confirmPassword.length > 0 && confirmPassword === password}
           error={errors.confirmPassword}
           disabled={submitting}
           showError={Boolean(errors.confirmPassword)}

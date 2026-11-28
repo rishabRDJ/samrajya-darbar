@@ -73,8 +73,8 @@ export function AppHeader() {
     }
   };
 
-  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
   };
 
   return (
@@ -84,17 +84,13 @@ export function AppHeader() {
       </div>
 
       <div className="flex min-w-0 flex-1 justify-center">
-        <form
-          onSubmit={handleSearchSubmit}
-          role="search"
-          className="w-full max-w-xl"
-        >
+        <form onSubmit={handleSearchSubmit} role="search" className="w-full max-w-xl">
           <label className="flex h-10 w-full items-center gap-2 rounded-full bg-white/15 px-4 ring-1 ring-white/20 backdrop-blur-md focus-within:bg-white/25 focus-within:ring-white/40">
             <LuSearch size={16} className="shrink-0 text-white/70" />
             <input
               type="search"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(event) => setSearch(event.target.value)}
               placeholder="Search…"
               aria-label="Search"
               className="w-full flex-1 cursor-text border-0 bg-transparent p-0 text-sm text-white outline-none placeholder:text-white/60"
