@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from "react";
 import {
   base,
   sizes,
@@ -10,7 +10,7 @@ import {
   iconSizes,
   type Variant,
   type Size,
-} from './Badge.styles';
+} from "./Badge.styles";
 
 export type BadgeProps = {
   text: string;
@@ -24,8 +24,8 @@ export type BadgeProps = {
 
 export function Badge({
   text,
-  variant = 'neutral',
-  size = 'sm',
+  variant = "neutral",
+  size = "sm",
   dot = false,
   pulse = false,
   icon,
@@ -44,9 +44,7 @@ export function Badge({
     <span style={merged}>
       {dot && (
         <span style={dotWrap} aria-hidden>
-          {pulse && (
-            <span style={{ ...dotPing, backgroundColor: dotColor }} />
-          )}
+          {pulse && <span style={{ ...dotPing, backgroundColor: dotColor }} />}
           <span style={{ ...dotCore, backgroundColor: dotColor }} />
           <style>{`@keyframes samrajya-ping { 75%, 100% { transform: scale(2); opacity: 0; } }`}</style>
         </span>

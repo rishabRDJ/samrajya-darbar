@@ -1,26 +1,26 @@
-import { NextResponse, type NextRequest } from 'next/server';
+import { NextResponse, type NextRequest } from "next/server";
 
-const AUTH_COOKIE = 'darbar_auth';
-const PUBLIC_PATHS = new Set(['/', '/register']);
+const AUTH_COOKIE = "darbar_auth";
+const PUBLIC_PATHS = new Set(["/", "/register"]);
 
 function isPublic(pathname: string): boolean {
   if (PUBLIC_PATHS.has(pathname)) return true;
-  return pathname.startsWith('/register/');
+  return pathname.startsWith("/register/");
 }
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const isAuthed = req.cookies.get(AUTH_COOKIE)?.value === '1';
+  const isAuthed = req.cookies.get(AUTH_COOKIE)?.value === "1";
 
   if (!isAuthed && !isPublic(pathname)) {
     const url = req.nextUrl.clone();
-    url.pathname = '/';
+    url.pathname = "/";
     return NextResponse.redirect(url);
   }
 
   if (isAuthed && isPublic(pathname)) {
     const url = req.nextUrl.clone();
-    url.pathname = '/dashboard';
+    url.pathname = "/dashboard";
     return NextResponse.redirect(url);
   }
 
@@ -28,5 +28,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next/|api/|assets/|favicon.ico|.*\\..*).*)'],
+  matcher: ["/((?!_next/|api/|assets/|favicon.ico|.*\\..*).*)"],
 };

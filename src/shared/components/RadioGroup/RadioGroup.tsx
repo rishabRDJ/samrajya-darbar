@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useId, useState, type CSSProperties } from 'react';
+import { useId, useState, type CSSProperties } from "react";
 import {
   fieldset,
   legend as legendStyle,
@@ -15,7 +15,7 @@ import {
   errorText as errorTextStyle,
   srOnly,
   type Size,
-} from './RadioGroup.styles';
+} from "./RadioGroup.styles";
 
 export type RadioOption = {
   value: string;
@@ -31,7 +31,7 @@ export type RadioGroupProps = {
   value: string | null;
   onChange: (value: string) => void;
   onBlur?: () => void;
-  direction?: 'vertical' | 'horizontal';
+  direction?: "vertical" | "horizontal";
   size?: Size;
   error?: string | boolean;
   required?: boolean;
@@ -47,8 +47,8 @@ export function RadioGroup({
   value,
   onChange,
   onBlur,
-  direction = 'vertical',
-  size = 'md',
+  direction = "vertical",
+  size = "md",
   error,
   required = false,
   disabled = false,
@@ -60,7 +60,7 @@ export function RadioGroup({
   const [focusedValue, setFocusedValue] = useState<string | null>(null);
 
   const hasError = Boolean(error) && (touched || showError);
-  const errorMsg = typeof error === 'string' ? error : undefined;
+  const errorMsg = typeof error === "string" ? error : undefined;
 
   return (
     <fieldset
@@ -71,7 +71,7 @@ export function RadioGroup({
       {label && (
         <legend style={legendStyle}>
           {label}
-          {required && <span style={{ color: '#dc2626', marginLeft: 2 }}>*</span>}
+          {required && <span style={{ color: "#dc2626", marginLeft: 2 }}>*</span>}
         </legend>
       )}
       <div role="radiogroup" aria-label={label} style={list(direction)}>
@@ -108,9 +108,7 @@ export function RadioGroup({
               </span>
               <span style={textCol}>
                 <span style={labelStyle(size)}>{opt.label}</span>
-                {opt.description && (
-                  <span style={descStyle}>{opt.description}</span>
-                )}
+                {opt.description && <span style={descStyle}>{opt.description}</span>}
               </span>
             </label>
           );

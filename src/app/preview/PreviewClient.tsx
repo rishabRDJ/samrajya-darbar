@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Badge,
   Button,
@@ -11,47 +11,39 @@ import {
   RadioGroup,
   Switch,
   Tabs,
-} from '@/shared/components';
+} from "@/shared/components";
 
 type SectionId =
-  | 'button'
-  | 'tabs'
-  | 'badge'
-  | 'card'
-  | 'input'
-  | 'dropdown'
-  | 'switch'
-  | 'checkbox'
-  | 'radio';
+  "button" | "tabs" | "badge" | "card" | "input" | "dropdown" | "switch" | "checkbox" | "radio";
 
 const sections: { id: SectionId; label: string }[] = [
-  { id: 'button', label: 'Button' },
-  { id: 'tabs', label: 'Tabs' },
-  { id: 'badge', label: 'Badge' },
-  { id: 'card', label: 'Card' },
-  { id: 'input', label: 'Input' },
-  { id: 'dropdown', label: 'Dropdown' },
-  { id: 'switch', label: 'Switch' },
-  { id: 'checkbox', label: 'Checkbox' },
-  { id: 'radio', label: 'Radio Group' },
+  { id: "button", label: "Button" },
+  { id: "tabs", label: "Tabs" },
+  { id: "badge", label: "Badge" },
+  { id: "card", label: "Card" },
+  { id: "input", label: "Input" },
+  { id: "dropdown", label: "Dropdown" },
+  { id: "switch", label: "Switch" },
+  { id: "checkbox", label: "Checkbox" },
+  { id: "radio", label: "Radio Group" },
 ];
 
 export function PreviewClient() {
-  const [active, setActive] = useState<SectionId>('button');
+  const [active, setActive] = useState<SectionId>("button");
 
   return (
-    <div style={{ display: 'flex', gap: 24, alignItems: 'flex-start' }}>
+    <div style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
       <aside
         style={{
-          position: 'sticky',
+          position: "sticky",
           top: 24,
           width: 200,
           flexShrink: 0,
-          borderRight: '1px solid #e5e7eb',
+          borderRight: "1px solid #e5e7eb",
           paddingRight: 16,
         }}
       >
-        <nav style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <nav style={{ display: "flex", flexDirection: "column", gap: 4 }}>
           {sections.map((s) => {
             const isActive = s.id === active;
             return (
@@ -60,16 +52,16 @@ export function PreviewClient() {
                 type="button"
                 onClick={() => setActive(s.id)}
                 style={{
-                  textAlign: 'left',
-                  padding: '8px 12px',
+                  textAlign: "left",
+                  padding: "8px 12px",
                   borderRadius: 6,
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontFamily: 'inherit',
+                  border: "none",
+                  cursor: "pointer",
+                  fontFamily: "inherit",
                   fontSize: 14,
                   fontWeight: isActive ? 600 : 500,
-                  backgroundColor: isActive ? '#eff6ff' : 'transparent',
-                  color: isActive ? '#1d4ed8' : '#374151',
+                  backgroundColor: isActive ? "#eff6ff" : "transparent",
+                  color: isActive ? "#1d4ed8" : "#374151",
                 }}
               >
                 {s.label}
@@ -80,33 +72,27 @@ export function PreviewClient() {
       </aside>
 
       <section style={{ flex: 1, minWidth: 0 }}>
-        {active === 'button' && <ButtonSection />}
-        {active === 'tabs' && <TabsSection />}
-        {active === 'badge' && <BadgeSection />}
-        {active === 'card' && <CardSection />}
-        {active === 'input' && <InputSection />}
-        {active === 'dropdown' && <DropdownSection />}
-        {active === 'switch' && <SwitchSection />}
-        {active === 'checkbox' && <CheckboxSection />}
-        {active === 'radio' && <RadioSection />}
+        {active === "button" && <ButtonSection />}
+        {active === "tabs" && <TabsSection />}
+        {active === "badge" && <BadgeSection />}
+        {active === "card" && <CardSection />}
+        {active === "input" && <InputSection />}
+        {active === "dropdown" && <DropdownSection />}
+        {active === "switch" && <SwitchSection />}
+        {active === "checkbox" && <CheckboxSection />}
+        {active === "radio" && <RadioSection />}
       </section>
     </div>
   );
 }
 
 function Heading({ children }: { children: string }) {
-  return (
-    <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16 }}>
-      {children}
-    </h2>
-  );
+  return <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16 }}>{children}</h2>;
 }
 
 function Row({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 16 }}>
-      {children}
-    </div>
+    <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 16 }}>{children}</div>
   );
 }
 
@@ -138,8 +124,8 @@ function ButtonSection() {
 }
 
 function TabsSection() {
-  const [tab, setTab] = useState('positions');
-  const [variant, setVariant] = useState<'underline' | 'pills' | 'segmented'>('underline');
+  const [tab, setTab] = useState("positions");
+  const [variant, setVariant] = useState<"underline" | "pills" | "segmented">("underline");
 
   return (
     <>
@@ -147,9 +133,9 @@ function TabsSection() {
       <div style={{ marginBottom: 16 }}>
         <Tabs
           tabs={[
-            { id: 'underline', label: 'underline' },
-            { id: 'pills', label: 'pills' },
-            { id: 'segmented', label: 'segmented' },
+            { id: "underline", label: "underline" },
+            { id: "pills", label: "pills" },
+            { id: "segmented", label: "segmented" },
           ]}
           value={variant}
           onChange={(v) => setVariant(v as typeof variant)}
@@ -159,16 +145,16 @@ function TabsSection() {
       <Tabs
         aria-label="Trading tabs"
         tabs={[
-          { id: 'positions', label: 'Open Positions', badge: 2 },
-          { id: 'closed', label: 'Closed Trades' },
-          { id: 'watchlist', label: 'Watchlist' },
-          { id: 'settings', label: 'Settings', disabled: true },
+          { id: "positions", label: "Open Positions", badge: 2 },
+          { id: "closed", label: "Closed Trades" },
+          { id: "watchlist", label: "Watchlist" },
+          { id: "settings", label: "Settings", disabled: true },
         ]}
         value={tab}
         onChange={setTab}
         variant={variant}
       />
-      <p style={{ marginTop: 12, fontSize: 13, color: '#6b7280' }}>Active: {tab}</p>
+      <p style={{ marginTop: 12, fontSize: 13, color: "#6b7280" }}>Active: {tab}</p>
     </>
   );
 }
@@ -200,7 +186,13 @@ function CardSection() {
   return (
     <>
       <Heading>Card</Heading>
-      <div style={{ display: 'grid', gap: 16, gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))' }}>
+      <div
+        style={{
+          display: "grid",
+          gap: 16,
+          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+        }}
+      >
         <Card
           title="RELIANCE"
           subtitle="NSE · Oil & Gas"
@@ -216,27 +208,27 @@ function CardSection() {
           media={
             <div
               style={{
-                display: 'flex',
-                height: '100%',
-                width: '100%',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#dbeafe',
-                color: '#1d4ed8',
+                display: "flex",
+                height: "100%",
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#dbeafe",
+                color: "#1d4ed8",
               }}
             >
               OB
             </div>
           }
-          onClick={() => alert('clicked')}
+          onClick={() => alert("clicked")}
         />
         <Card
           variant="square"
           title="P&L Today"
           subtitle="Paper trading"
-          footer={<span style={{ fontSize: 11, color: '#6b7280' }}>Updated just now</span>}
+          footer={<span style={{ fontSize: 11, color: "#6b7280" }}>Updated just now</span>}
         >
-          <div style={{ fontSize: 28, fontWeight: 700, color: '#16a34a' }}>+₹1,245</div>
+          <div style={{ fontSize: 28, fontWeight: 700, color: "#16a34a" }}>+₹1,245</div>
         </Card>
       </div>
     </>
@@ -244,19 +236,25 @@ function CardSection() {
 }
 
 function InputSection() {
-  const [text, setText] = useState('');
-  const [email, setEmail] = useState('');
+  const [text, setText] = useState("");
+  const [email, setEmail] = useState("");
   return (
     <>
       <Heading>Input</Heading>
-      <div style={{ display: 'grid', gap: 16, gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))' }}>
+      <div
+        style={{
+          display: "grid",
+          gap: 16,
+          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+        }}
+      >
         <Input
           label="Full name"
           value={text}
           onChange={setText}
           placeholder="Satoshi"
           required
-          error={text.length === 0 ? 'Name is required' : false}
+          error={text.length === 0 ? "Name is required" : false}
         />
         <Input
           label="Email"
@@ -282,32 +280,38 @@ function DropdownSection() {
   return (
     <>
       <Heading>Dropdown</Heading>
-      <div style={{ display: 'grid', gap: 16, gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))' }}>
+      <div
+        style={{
+          display: "grid",
+          gap: 16,
+          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+        }}
+      >
         <Dropdown
           label="Symbol"
           value={symbol}
           onChange={setSymbol}
           options={[
-            { value: 'RELIANCE', label: 'RELIANCE', description: 'NSE · Oil & Gas' },
-            { value: 'TCS', label: 'TCS', description: 'NSE · IT Services' },
-            { value: 'HDFCBANK', label: 'HDFCBANK', description: 'NSE · Banking' },
-            { value: 'INFY', label: 'INFY', description: 'NSE · IT Services' },
-            { value: 'SBIN', label: 'SBIN', description: 'NSE · Banking', disabled: true },
+            { value: "RELIANCE", label: "RELIANCE", description: "NSE · Oil & Gas" },
+            { value: "TCS", label: "TCS", description: "NSE · IT Services" },
+            { value: "HDFCBANK", label: "HDFCBANK", description: "NSE · Banking" },
+            { value: "INFY", label: "INFY", description: "NSE · IT Services" },
+            { value: "SBIN", label: "SBIN", description: "NSE · Banking", disabled: true },
           ]}
           searchable
           placeholder="Pick a symbol"
           required
-          error={symbol === null ? 'Select a symbol' : false}
+          error={symbol === null ? "Select a symbol" : false}
         />
         <Dropdown
           label="Timeframe"
           value={tf}
           onChange={setTf}
           options={[
-            { value: '1m', label: '1 minute' },
-            { value: '5m', label: '5 minutes' },
-            { value: '15m', label: '15 minutes' },
-            { value: '1d', label: '1 day' },
+            { value: "1m", label: "1 minute" },
+            { value: "5m", label: "5 minutes" },
+            { value: "15m", label: "15 minutes" },
+            { value: "1d", label: "1 day" },
           ]}
           helperText="Used for chart bars"
         />
@@ -322,7 +326,7 @@ function SwitchSection() {
   return (
     <>
       <Heading>Switch</Heading>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         <Switch
           label="Order notifications"
           description="Ping on fills and rejections"
@@ -344,14 +348,14 @@ function CheckboxSection() {
   return (
     <>
       <Heading>Checkbox</Heading>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         <Checkbox
           label="I agree to the terms"
           description="Required to open an account"
           checked={agree}
           onChange={setAgree}
           required
-          error={!agree ? 'You must agree' : false}
+          error={!agree ? "You must agree" : false}
         />
         <Checkbox
           label="Indeterminate (select all)"
@@ -366,12 +370,12 @@ function CheckboxSection() {
 }
 
 function RadioSection() {
-  const [side, setSide] = useState<string | null>('buy');
+  const [side, setSide] = useState<string | null>("buy");
   const [strategy, setStrategy] = useState<string | null>(null);
   return (
     <>
       <Heading>Radio Group</Heading>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
         <RadioGroup
           name="side"
           label="Order side"
@@ -379,8 +383,8 @@ function RadioSection() {
           onChange={setSide}
           direction="horizontal"
           options={[
-            { value: 'buy', label: 'Buy' },
-            { value: 'sell', label: 'Sell' },
+            { value: "buy", label: "Buy" },
+            { value: "sell", label: "Sell" },
           ]}
         />
         <RadioGroup
@@ -389,11 +393,11 @@ function RadioSection() {
           value={strategy}
           onChange={setStrategy}
           required
-          error={strategy === null ? 'Pick a strategy' : false}
+          error={strategy === null ? "Pick a strategy" : false}
           options={[
-            { value: 'smc', label: 'SMC zones', description: 'Supply/demand blocks' },
-            { value: 'orb', label: 'Opening Range Breakout', description: 'First 15m range' },
-            { value: 'momo', label: 'Momentum', description: 'Trend-following' },
+            { value: "smc", label: "SMC zones", description: "Supply/demand blocks" },
+            { value: "orb", label: "Opening Range Breakout", description: "First 15m range" },
+            { value: "momo", label: "Momentum", description: "Trend-following" },
           ]}
         />
       </div>

@@ -19,9 +19,7 @@ export function BrandMark({ href = "/" }: Props) {
         className="size-7"
         priority
       />
-      <span className="text-sm font-medium tracking-tight text-white">
-        Samrajya
-      </span>
+      <span className="text-sm font-medium tracking-tight text-white">Samrajya</span>
     </Link>
   );
 }
