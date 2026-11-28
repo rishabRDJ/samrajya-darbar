@@ -1,5 +1,51 @@
 @import "tailwindcss";
 
+@theme {
+  /* Jade Green (Primary Brand / Background) */
+  --color-jade-green-100: #e3f2ee;
+  --color-jade-green-200: #bce0d6;
+  --color-jade-green-300: #8ec8b9;
+  --color-jade-green-400: #5cae9a;
+  --color-jade-green-500: #35927d;
+  --color-jade-green-600: #247a67;
+  --color-jade-green-700: #196453;
+  --color-jade-green-800: #135546;
+  --color-jade-green-900: #0e4a3c;
+
+  /* Samrajya Gold (Accents / Candles / Titles) */
+  --color-samrajya-gold-100: #faf3df;
+  --color-samrajya-gold-200: #f3e3b6;
+  --color-samrajya-gold-300: #ebd08a;
+  --color-samrajya-gold-400: #e0bc5f;
+  --color-samrajya-gold-500: #d4a93a;
+  --color-samrajya-gold-600: #b58b27;
+  --color-samrajya-gold-700: #8e6b1c;
+  --color-samrajya-gold-800: #674d14;
+  --color-samrajya-gold-900: #45320c;
+
+  /* Bull Green (Buy / Profit / Connected) */
+  --color-bull-green-100: #e2f9ec;
+  --color-bull-green-200: #b9f1d1;
+  --color-bull-green-300: #87e6b1;
+  --color-bull-green-400: #57d990;
+  --color-bull-green-500: #2ecc71;
+  --color-bull-green-600: #22ab5c;
+  --color-bull-green-700: #198547;
+  --color-bull-green-800: #116033;
+  --color-bull-green-900: #0b3b2e;
+
+  /* Bear Red (Sell / Loss / Error / Halted) */
+  --color-bear-red-100: #fde7e5;
+  --color-bear-red-200: #fac8c3;
+  --color-bear-red-300: #f59e95;
+  --color-bear-red-400: #ee7467;
+  --color-bear-red-500: #e74c3c;
+  --color-bear-red-600: #c83829;
+  --color-bear-red-700: #9f2a1e;
+  --color-bear-red-800: #761e15;
+  --color-bear-red-900: #4f130d;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -23,4 +69,14 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+  -webkit-text-fill-color: #18181b !important;
+  caret-color: #18181b;
+  transition: background-color 9999s ease-in-out 0s;
 }
