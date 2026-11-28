@@ -1,34 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { LogoutButton } from "./LogoutButton";
 
 type Props = {
   children: ReactNode;
   brandHref?: string;
+  showLogout?: boolean;
 };
 
-export function BrandShell({ children, brandHref = "/" }: Props) {
+export function BrandShell({ children, brandHref = "/", showLogout = false }: Props) {
   return (
     <div
-      className="relative flex min-h-screen w-full flex-col justify-between overflow-hidden p-6 sm:p-8"
+      className="relative flex min-h-screen w-full flex-col justify-between overflow-hidden"
       style={{
         background: "linear-gradient(180deg, #0E4A3C 0%, #175C4A 38%, #6D8242 72%, #D4A93A 100%)",
       }}
     >
-      {/* <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 flex items-center justify-center"
-      >
-        <div className="relative size-[1200px] max-w-none">
-          <div className="absolute inset-0 rounded-full border border-white/10" />
-          <div className="absolute inset-24 rounded-full border border-white/10" />
-          <div className="absolute inset-48 rounded-full border border-white/10" />
-          <div className="absolute inset-72 rounded-full border border-white/10" />
-          <div className="absolute inset-96 rounded-full border border-white/10" />
-        </div>
-      </div> */}
-
-      <header className="relative z-10">
+      <header className="relative z-10 flex items-center justify-between">
         <Link
           href={brandHref}
           className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 ring-1 ring-white/20 backdrop-blur-md"
@@ -43,6 +32,7 @@ export function BrandShell({ children, brandHref = "/" }: Props) {
           />
           <span className="text-sm font-medium tracking-tight text-white">Samrajya</span>
         </Link>
+        {showLogout && <LogoutButton />}
       </header>
 
       <main className="relative z-10 flex flex-1 items-center justify-center">{children}</main>

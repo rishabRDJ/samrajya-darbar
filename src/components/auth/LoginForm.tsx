@@ -1,7 +1,7 @@
 "use client";
 
-import { FiLock, FiLogIn, FiMail } from "react-icons/fi";
-import { useRouter } from "next/navigation";
+import { LuLock, LuLogIn, LuMail } from "react-icons/lu";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { authApi } from "@/api";
 import { ApiError } from "@/lib/http/types";
@@ -23,6 +23,8 @@ function mapApiError(err: unknown): string {
 
 export function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const showRegisteredBanner = searchParams.get("registered") === "1";
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -33,8 +35,11 @@ export function LoginForm() {
     const next: FieldErrors = {};
     if (!identifier.trim()) next.identifier = "Email or username is required";
     if (!password) next.password = "Password is required";
+    else if (password.length < 8) next.password = "Password must be at least 8 characters";
     return next;
   };
+
+  const canSubmit = identifier.trim().length > 0 && password.length >= 8;
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -61,12 +66,21 @@ export function LoginForm() {
       className="w-full max-w-[420px] rounded-3xl border border-white/70 bg-white/85 p-7 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-8"
     >
       <div className="mx-auto mb-5 flex size-12 items-center justify-center rounded-2xl border border-zinc-100 bg-white shadow-md">
-        <FiLogIn className="size-5 text-[#0E4A3C]" />
+        <LuLogIn className="size-5 text-[#0E4A3C]" />
       </div>
 
       <h1 className="mb-6 text-center text-xl font-semibold tracking-tight text-zinc-900 sm:text-2xl">
         Sign in with email or username
       </h1>
+
+      {showRegisteredBanner && (
+        <div
+          role="status"
+          className="mb-4 rounded-lg border border-bull-green-200 bg-bull-green-100 px-3 py-2 text-sm text-bull-green-800"
+        >
+          Account created — please sign in
+        </div>
+      )}
 
       <div className="flex flex-col gap-3">
         <Input
@@ -83,7 +97,7 @@ export function LoginForm() {
           }}
           placeholder="Email or username"
           autoComplete="username"
-          prefix={<FiMail size={16} />}
+          prefix={<LuMail size={16} />}
           error={errors.identifier}
           disabled={loading}
           showError={Boolean(errors.identifier)}
@@ -101,7 +115,7 @@ export function LoginForm() {
           }}
           placeholder="Password"
           autoComplete="current-password"
-          prefix={<FiLock size={16} />}
+          prefix={<LuLock size={16} />}
           error={errors.password}
           disabled={loading}
           showError={Boolean(errors.password)}
@@ -123,7 +137,7 @@ export function LoginForm() {
           type="submit"
           fullWidth
           loading={loading}
-          disabled={loading}
+          disabled={loading || !canSubmit}
           className="inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-zinc-950 font-medium text-white shadow-sm transition-colors hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-60"
         />
         <Button

@@ -1,6 +1,6 @@
 'use client';
 
-import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { LuEye, LuEyeOff } from 'react-icons/lu';
 import {
   useId,
   useState,
@@ -31,6 +31,7 @@ export type InputProps = {
   autoComplete?: string;
   prefix?: ReactNode;
   suffix?: ReactNode;
+  success?: boolean;
   showError?: boolean;
   min?: number;
   max?: number;
@@ -63,6 +64,7 @@ export function Input({
   autoComplete,
   prefix,
   suffix,
+  success = false,
   showError = false,
   min,
   max,
@@ -85,12 +87,15 @@ export function Input({
   const isPassword = type === 'password';
   const effectiveType = isPassword && showPassword ? 'text' : type;
 
+  const showSuccess = success && !hasError;
   const fieldClasses = [
     'flex items-center gap-2 rounded-lg border bg-white transition-colors',
     'focus-within:ring-2 focus-within:ring-offset-0',
     hasError
       ? 'border-red-500 focus-within:border-red-500 focus-within:ring-red-500/20'
-      : 'border-zinc-200 focus-within:border-zinc-400 focus-within:ring-zinc-900/10',
+      : showSuccess
+        ? 'border-bull-green-500 focus-within:border-bull-green-500 focus-within:ring-bull-green-500/20'
+        : 'border-zinc-200 focus-within:border-zinc-400 focus-within:ring-zinc-900/10',
     disabled ? 'bg-zinc-100 opacity-60 cursor-not-allowed' : '',
     sizeClasses[size],
     className ?? '',
@@ -142,6 +147,11 @@ export function Input({
             disabled ? 'cursor-not-allowed' : 'cursor-text',
           ].join(' ')}
         />
+        {suffix && (
+          <span className="flex shrink-0 items-center text-zinc-400">
+            {suffix}
+          </span>
+        )}
         {isPassword && !disabled && (
           <button
             type="button"
@@ -149,13 +159,8 @@ export function Input({
             aria-label={showPassword ? 'Hide password' : 'Show password'}
             className="flex shrink-0 cursor-pointer items-center text-zinc-400 hover:text-zinc-600"
           >
-            {showPassword ? <FiEyeOff size={16} /> : <FiEye size={16} />}
+            {showPassword ? <LuEyeOff size={16} /> : <LuEye size={16} />}
           </button>
-        )}
-        {suffix && !isPassword && (
-          <span className="flex shrink-0 items-center text-zinc-400">
-            {suffix}
-          </span>
         )}
       </div>
       {hasError && errorMsg ? (
