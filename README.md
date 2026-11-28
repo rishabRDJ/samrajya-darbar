@@ -22,7 +22,7 @@ Darbar serves two roles in the Samrajya architecture.
 ## Environment Variables Required
 
 \`\`\`env
-NEXT_PUBLIC_DWARPAL_URL="http://localhost:3001"
+NEXT_PUBLIC_DWARPAL_URL="http://localhost:3000"
 NEXT_PUBLIC_DIWAN_URL="http://localhost:3002"
 OPENAI_API_KEY="sk-your-llm-api-key"
 PINECONE_API_KEY="your-pinecone-api-key"
