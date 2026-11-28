@@ -12,7 +12,7 @@ export interface RequestOptions {
 const DEFAULT_BASE_URL = "http://localhost:3000";
 
 function resolveBaseUrl(): string {
-  const url = process.env.NEXT_PUBLIC_API_BASE_URL ?? DEFAULT_BASE_URL;
+  const url = process.env.NEXT_PUBLIC_DWARPAL_BASE_URL ?? DEFAULT_BASE_URL;
   return url.replace(/\/+$/, "");
 }
 
