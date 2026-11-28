@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   useEffect,
@@ -9,7 +9,7 @@ import {
   type CSSProperties,
   type KeyboardEvent,
   type ReactNode,
-} from 'react';
+} from "react";
 import {
   wrapper,
   labelStyle,
@@ -34,7 +34,7 @@ import {
   helper as helperStyle,
   errorText,
   type Size,
-} from './Dropdown.styles';
+} from "./Dropdown.styles";
 
 export type DropdownOption = {
   value: string;
@@ -71,8 +71,8 @@ export function Dropdown({
   value,
   onChange,
   onBlur,
-  placeholder = 'Select an option',
-  size = 'md',
+  placeholder = "Select an option",
+  size = "md",
   error,
   helperText,
   required = false,
@@ -91,56 +91,53 @@ export function Dropdown({
 
   const [open, setOpen] = useState(false);
   const [touched, setTouched] = useState(false);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [activeIdx, setActiveIdx] = useState<number>(-1);
 
   const filtered = useMemo(() => {
     if (!searchable || !query.trim()) return options;
     const q = query.toLowerCase();
     return options.filter(
-      (o) =>
-        o.label.toLowerCase().includes(q) ||
-        o.description?.toLowerCase().includes(q)
+      (option) =>
+        option.label.toLowerCase().includes(q) || option.description?.toLowerCase().includes(q)
     );
   }, [options, query, searchable]);
 
-  const selected = options.find((o) => o.value === value) ?? null;
+  const selected = options.find((option) => option.value === value) ?? null;
   const hasError = Boolean(error) && (touched || showError);
-  const errorMsg = typeof error === 'string' ? error : undefined;
+  const errorMsg = typeof error === "string" ? error : undefined;
 
   useEffect(() => {
     if (!open) return;
-    const onDocDown = (e: MouseEvent) => {
-      if (!rootRef.current?.contains(e.target as Node)) {
+    const onDocDown = (_event: MouseEvent) => {
+      if (!rootRef.current?.contains(_event.target as Node)) {
         setOpen(false);
         setTouched(true);
+        setQuery("");
         onBlur?.();
       }
     };
-    document.addEventListener('mousedown', onDocDown);
-    return () => document.removeEventListener('mousedown', onDocDown);
+    document.addEventListener("mousedown", onDocDown);
+    return () => document.removeEventListener("mousedown", onDocDown);
   }, [open, onBlur]);
 
   useEffect(() => {
-    if (open) {
-      const initial = filtered.findIndex((o) => o.value === value);
-      setActiveIdx(initial >= 0 ? initial : filtered.findIndex((o) => !o.disabled));
-      if (searchable) {
-        setTimeout(() => searchRef.current?.focus(), 0);
-      }
-    } else {
-      setQuery('');
+    if (open && searchable) {
+      setTimeout(() => searchRef.current?.focus(), 0);
     }
-  }, [open, searchable, value, filtered]);
+  }, [open, searchable]);
 
   const openMenu = () => {
     if (disabled) return;
+    const initial = options.findIndex((option) => option.value === value);
+    setActiveIdx(initial >= 0 ? initial : options.findIndex((option) => !option.disabled));
     setOpen(true);
   };
 
   const closeMenu = (restoreFocus = true) => {
     setOpen(false);
     setTouched(true);
+    setQuery("");
     onBlur?.();
     if (restoreFocus) triggerRef.current?.focus();
   };
@@ -165,42 +162,42 @@ export function Dropdown({
     }
   };
 
-  const onTriggerKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
+  const onTriggerKeyDown = (_event: KeyboardEvent<HTMLButtonElement>) => {
     if (disabled) return;
     if (!open) {
-      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
+      if (_event.key === "ArrowDown" || _event.key === "Enter" || _event.key === " ") {
+        _event.preventDefault();
         openMenu();
       }
       return;
     }
-    if (e.key === 'Escape') {
-      e.preventDefault();
+    if (_event.key === "Escape") {
+      _event.preventDefault();
       closeMenu();
-    } else if (e.key === 'ArrowDown') {
-      e.preventDefault();
+    } else if (_event.key === "ArrowDown") {
+      _event.preventDefault();
       moveActive(1);
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
+    } else if (_event.key === "ArrowUp") {
+      _event.preventDefault();
       moveActive(-1);
-    } else if (e.key === 'Enter') {
-      e.preventDefault();
+    } else if (_event.key === "Enter") {
+      _event.preventDefault();
       commitActive();
     }
   };
 
-  const onSearchKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
+  const onSearchKeyDown = (_event: KeyboardEvent<HTMLInputElement>) => {
+    if (_event.key === "ArrowDown") {
+      _event.preventDefault();
       moveActive(1);
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
+    } else if (_event.key === "ArrowUp") {
+      _event.preventDefault();
       moveActive(-1);
-    } else if (e.key === 'Enter') {
-      e.preventDefault();
+    } else if (_event.key === "Enter") {
+      _event.preventDefault();
       commitActive();
-    } else if (e.key === 'Escape') {
-      e.preventDefault();
+    } else if (_event.key === "Escape") {
+      _event.preventDefault();
       closeMenu();
     }
   };
@@ -216,11 +213,7 @@ export function Dropdown({
   return (
     <div ref={rootRef} style={{ ...wrapper, ...style }}>
       {label && (
-        <label
-          htmlFor={id}
-          style={labelStyle}
-          onClick={() => triggerRef.current?.focus()}
-        >
+        <label htmlFor={id} style={labelStyle} onClick={() => triggerRef.current?.focus()}>
           {label}
           {required && <span style={requiredMark}>*</span>}
         </label>
@@ -240,14 +233,14 @@ export function Dropdown({
         onKeyDown={onTriggerKeyDown}
         style={mergedTrigger}
       >
-        <span style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1, minWidth: 0 }}>
+        <span style={{ display: "flex", alignItems: "center", gap: 8, flex: 1, minWidth: 0 }}>
           {selected?.icon}
           <span
             style={{
               ...(!selected ? placeholderStyle : {}),
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
             }}
           >
             {selected ? selected.label : placeholder}
@@ -310,18 +303,10 @@ export function Dropdown({
                     {opt.icon}
                     <span style={optionText}>
                       <span style={optionLabel}>{opt.label}</span>
-                      {opt.description && (
-                        <span style={optionDesc}>{opt.description}</span>
-                      )}
+                      {opt.description && <span style={optionDesc}>{opt.description}</span>}
                     </span>
                     {isSelected && (
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 16 16"
-                        aria-hidden
-                        style={checkIcon}
-                      >
+                      <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden style={checkIcon}>
                         <path
                           d="M3 8l3 3 7-7"
                           fill="none"
